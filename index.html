@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Main Page</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Kanit&family=Sarabun&display=swap');
+        body {
+            background-color: lightgoldenrodyellow;
+        }
+        h1 {
+            font-family: 'Kanit', sans-serif;
+            color: #000000;
+        }
+        p, div {
+            font-family: Sarabun, sans-serif;
+        }
+        img {
+            margin-top: 1em;
+            margin-bottom: 2em;
+        }
+        table {
+            border-style: solid;
+            border-width: 1px;
+        }
+        .center {
+            text-align: center;
+            margin-top: 2em;
+            margin-bottom: 1em;
+        }
+        button {
+            font-family: 'Kanit', sans-serif;
+            font-size: large;
+        }
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    </style>
+    <script>
+        function toThaiDateString(date) {
+            let monthNames = [
+                "มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน",
+                "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม.",
+                "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"
+            ];
+
+            let year = date.getFullYear() + 543;
+            let month = monthNames[date.getMonth()];
+            let numOfDay = date.getDate();
+
+            let hour = date.getHours().toString().padStart(2, "0");
+            let minutes = date.getMinutes().toString().padStart(2, "0");
+            let second = date.getSeconds().toString().padStart(2, "0");
+
+            return `${numOfDay} ${month} ${year} ` +
+                `${hour}:${minutes}:${second} น.`;
+        }
+        setInterval(UpdateTime, 1000);
+        function UpdateTime() {
+            let now = toThaiDateString(new Date());
+            document.getElementById('currentDateTime').innerHTML = now;
+        }
+        function DisplayTable(state) {
+            document.getElementById('myTable').style.visibility = state;
+        }
+        function calAverage() {
+            let n1 = Number.parseInt(document.getElementById('num1').value);
+            let n2 = Number.parseInt(document.getElementById('num2').value);
+            let n3 = Number.parseInt(document.getElementById('num3').value);
+            let avr = (n1 + n2 + n3) / 3;
+            document.getElementById('avr').innerHTML = "ค่าเฉลี่ย: " + avr;
+        }
+    </script>
+  </head>
+  <body>
+    <h1 class="center" id="header">สวัสดีชาวโลก</h1>
+    <div class="center"><button type="button" onclick="document.getElementById('header').style.color='red'">เปลี่ยนสี</button></div>
+
+    <h2 class="center" id="currentDateTime">
+        <script>
+            UpdateTime();
+        </script>
+    </h2>
+
+    <div class="center">
+        <button onclick="document.getElementById('myImage').src='images/Idle.png'">แมวยืน</button>
+        <img id="myImage" src="images/Idle.png" width="200px">    
+        <button onclick="document.getElementById('myImage').src='images/Slide.png'">แมวสไลด์</button>
+    </div>
+
+    <div class="center">
+        <button onclick="DisplayTable('visible')">แสดงตาราง</button>
+        <button onclick="DisplayTable('hidden')">ซ่อนตาราง</button>
+    </div>
+    <table id="myTable">
+        <caption>ตารางสินค้า</caption>
+        <tr>
+            <th>รายการที่ 1</th>
+            <th>รายการที่ 2</th>
+            <th>รายการที่ 3</th>
+        </tr>
+        <tr>
+            <td>324</td>
+            <td>657</td>
+            <td>318</td>
+        </tr>
+        <tr>
+            <td>999</td>
+            <td>777</td>
+            <td>888</td>
+        </tr>
+    </table>
+    <div class="center">
+        number #1 <input type="number" id="num1"><br />
+        number #2 <input type="number" id="num2"><br />
+        number #3 <input type="number" id="num3"><br />
+        <button onclick="calAverage()">Submit</button>
+    </div>
+    <div class="center" id="avr"></div>
+  </body>
+</html>
